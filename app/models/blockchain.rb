@@ -21,7 +21,7 @@ class Blockchain < ApplicationRecord
   end
 
   def blockchain_api
-    BlockchainClient[key]
+    Peatio::BlockchainClient[key]
   end
 end
 

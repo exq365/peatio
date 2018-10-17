@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 module WalletClient
-  class Ethereum < Base
+  class Ethereum < Peatio::WalletClient::Base
 
     def initialize(*)
       super
@@ -32,7 +32,7 @@ module WalletClient
           }.compact, issuer.fetch(:secret)
         ]
       ).fetch('result').yield_self do |txid|
-        raise WalletClient::Error, \
+        raise Peatio::WalletClient::Error, \
           "#{wallet.name} withdrawal from #{normalize_address(issuer[:address])} to #{normalize_address(recipient[:address])} failed." \
             unless valid_txid?(normalize_txid(txid))
         normalize_txid(txid)
@@ -58,13 +58,25 @@ module WalletClient
           }.compact, issuer.fetch(:secret)
         ]
       ).fetch('result').yield_self do |txid|
-        raise WalletClient::Error, \
+        raise Peatio::WalletClient::Error, \
           "#{wallet.name} withdrawal from #{normalize_address(issuer[:address])} to #{normalize_address(recipient[:address])} failed." \
             unless valid_txid?(normalize_txid(txid))
         normalize_txid(txid)
       end
     end
 
+<<<<<<< HEAD:lib/peatio/wallet_client/ethereum.rb
+=======
+    def permit_transaction(issuer, recipient)
+      json_rpc(:personal_unlockAccount, [normalize_address(issuer.fetch(:address)), issuer.fetch(:secret), 5]).tap do |response|
+        unless response['result']
+          raise Peatio::WalletClient::Error, \
+            "#{wallet.name} withdrawal from #{normalize_address(issuer[:address])} to #{normalize_address(recipient[:address])} is not permitted."
+        end
+      end
+    end
+
+>>>>>>> Plugable NXT/WCG coins:lib/wallet_client/geth.rb
     def inspect_address!(address)
       { address:  normalize_address(address),
         is_valid: valid_address?(normalize_address(address)) }
@@ -130,7 +142,7 @@ module WalletClient
           'Content-Type' => 'application/json' }
       response.assert_success!
       response = JSON.parse(response.body)
-      response['error'].tap { |error| raise Error, error.inspect if error }
+      response['error'].tap { |error| raise Peatio::WalletClient::Error, error.inspect if error }
       response
     end
 
@@ -148,7 +160,7 @@ module WalletClient
 
     def require_param!(options, key)
       options.fetch(key) do
-        raise WalletClient::Error, "#{key.to_s.humanize} is required param."
+        raise Peatio::WalletClient::Error, "#{key.to_s.humanize} is required param."
       end
     end
   end

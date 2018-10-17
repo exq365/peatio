@@ -9,7 +9,11 @@ describe BlockchainService::Geth do
     WebMock.allow_net_connect!
   end
 
+<<<<<<< HEAD:spec/services/blockchain_service/geth_spec.rb
   describe 'Client::Geth' do
+=======
+  describe 'BlockchainClient::Ethereum' do
+>>>>>>> Plugable NXT/WCG coins:spec/services/blockchain_service/ethereum_spec.rb
     let(:block_data) do
       Rails.root.join('spec', 'resources', 'ethereum-data', 'rinkeby', block_file_name)
         .yield_self { |file_path| File.open(file_path) }
@@ -30,7 +34,7 @@ describe BlockchainService::Geth do
         .tap { |b| b.update(height: start_block) }
     end
 
-    let(:client) { BlockchainClient[blockchain.key] }
+    let(:client) { Peatio::BlockchainClient[blockchain.key] }
 
     def request_receipt_body(txid, index)
       { jsonrpc: '2.0',
@@ -89,7 +93,7 @@ describe BlockchainService::Geth do
         end
 
         # Process blockchain data.
-        BlockchainService[blockchain.key].process_blockchain(force: true)
+        Peatio::BlockchainService[blockchain.key].process_blockchain(force: true)
       end
 
       subject { Deposits::Coin.where(currency: currency) }
@@ -111,7 +115,7 @@ describe BlockchainService::Geth do
 
         it 'doesn\'t change deposit' do
           expect(blockchain.height).to eq start_block
-          expect{ BlockchainService[blockchain.key].process_blockchain(force: true)}.not_to change{subject}
+          expect{ Peatio::BlockchainService[blockchain.key].process_blockchain(force: true)}.not_to change{subject}
         end
       end
     end
@@ -166,7 +170,7 @@ describe BlockchainService::Geth do
               .with(body: request_receipt_body(rcpt['result']['transactionHash'],index))
               .to_return(body: rcpt.to_json)
         end
-        BlockchainService[blockchain.key].process_blockchain(force: true)
+        Peatio::BlockchainService[blockchain.key].process_blockchain(force: true)
       end
 
       subject { Deposits::Coin.where(currency: currency) }
@@ -188,7 +192,7 @@ describe BlockchainService::Geth do
 
         it 'doesn\'t change deposit' do
           expect(blockchain.height).to eq start_block
-          expect{ BlockchainService[blockchain.key].process_blockchain(force: true)}.not_to change{subject}
+          expect{ Peatio::BlockchainService[blockchain.key].process_blockchain(force: true)}.not_to change{subject}
         end
       end
     end
@@ -239,7 +243,7 @@ describe BlockchainService::Geth do
               .with(body: request_receipt_body(rcpt['result']['transactionHash'],index))
               .to_return(body: rcpt.to_json)
         end
-        BlockchainService[blockchain.key].process_blockchain(force: true)
+        Peatio::BlockchainService[blockchain.key].process_blockchain(force: true)
       end
 
       subject { Deposits::Coin.where(currency: currency) }
@@ -312,7 +316,7 @@ describe BlockchainService::Geth do
               .with(body: request_receipt_body(rcpt['result']['transactionHash'],index))
               .to_return(body: rcpt.to_json)
         end
-        BlockchainService[blockchain.key].process_blockchain(force: true)
+        Peatio::BlockchainService[blockchain.key].process_blockchain(force: true)
       end
 
       subject { Withdraws::Coin.where(currency: currency) }
@@ -401,7 +405,7 @@ describe BlockchainService::Geth do
               .with(body: request_receipt_body(rcpt['result']['transactionHash'],index))
               .to_return(body: rcpt.to_json)
         end
-        BlockchainService[blockchain.key].process_blockchain(force: true)
+        Peatio::BlockchainService[blockchain.key].process_blockchain(force: true)
       end
 
       subject { Withdraws::Coin.where(currency: currency) }

@@ -52,7 +52,7 @@ describe WalletService do
         }
       end
 
-      subject { WalletService[deposit_wallet].send(:spread_deposit, deposit) }
+      subject { Peatio::WalletService[deposit_wallet].send(:spread_deposit, deposit) }
 
       before do
         Wallet.find_by(currency: :eth, kind: :hot, blockchain_key: 'eth-kovan').delete
@@ -105,7 +105,7 @@ describe WalletService do
         }
       end
 
-      subject { WalletService[deposit_wallet].send(:spread_deposit, deposit) }
+      subject { Peatio::WalletService[deposit_wallet].send(:spread_deposit, deposit) }
 
       before do
         Wallet.find_by(currency: :eth, kind: :hot, blockchain_key: 'eth-kovan').delete
@@ -157,7 +157,7 @@ describe WalletService do
         }
       end
 
-      subject { WalletService[deposit_wallet].send(:spread_deposit, deposit) }
+      subject { Peatio::WalletService[deposit_wallet].send(:spread_deposit, deposit) }
 
       before do
         hot_wallet.update!(max_balance: 100)
@@ -210,7 +210,7 @@ describe WalletService do
         }
       end
 
-      subject { WalletService[deposit_wallet].send(:spread_deposit, deposit) }
+      subject { Peatio::WalletService[deposit_wallet].send(:spread_deposit, deposit) }
 
       before do
         hot_wallet.update!(max_balance: 100)

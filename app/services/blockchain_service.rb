@@ -58,6 +58,7 @@ module BlockchainService
         deposit.update_column(:block_number, deposit_hash.fetch(:block_number))
         if deposit.confirmations >= blockchain.min_confirmations
           deposit.accept!
+          deposit.collect!
         end
       end
     end

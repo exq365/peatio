@@ -131,8 +131,6 @@ module BlockchainClient
       json_rpc(:eth_getBlockByNumber, [number, false]).fetch('result')
     end
 
-<<<<<<< HEAD:lib/peatio/blockchain_client/ethereum.rb
-=======
     def permit_transaction(issuer, recipient)
       json_rpc(:personal_unlockAccount, [normalize_address(issuer.fetch(:address)), issuer.fetch(:secret), 5]).tap do |response|
         unless response['result']
@@ -142,7 +140,6 @@ module BlockchainClient
       end
     end
 
->>>>>>> Plugable NXT/WCG coins:lib/blockchain_client/ethereum.rb
     def abi_encode(method, *args)
       '0x' + args.each_with_object(Digest::SHA3.hexdigest(method, 256)[0...8]) do |arg, data|
         data.concat(arg.gsub(/\A0x/, '').rjust(64, '0'))

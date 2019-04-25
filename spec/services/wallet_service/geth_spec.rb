@@ -98,12 +98,7 @@ describe WalletService::Geth do
 
       before do
         stub_request(:post, hot_wallet.uri).with(body: eth_getBalance_request).to_return(body: eth_getBalance_response)
-<<<<<<< HEAD
         stub_request(:post, deposit_wallet.uri).with(body: personal_sendTransaction_request).to_return(body: personal_sendTransaction_response)
-=======
-        Peatio::WalletClient[deposit_wallet].class.any_instance.expects(:permit_transaction)
-        stub_request(:post, deposit_wallet.uri).with(body: eth_sendTransaction_request).to_return(body: eth_sendTransaction_response)
->>>>>>> Plugable NXT/WCG coins
       end
 
       it do
@@ -176,12 +171,7 @@ describe WalletService::Geth do
 
       before do
         stub_request(:post, hot_wallet.uri).with(body: eth_call_request).to_return(body: eth_call_response)
-<<<<<<< HEAD
         stub_request(:post, deposit_wallet.uri).with(body: personal_sendTransaction_request).to_return(body: personal_sendTransaction_response)
-=======
-        Peatio::WalletClient[deposit_wallet].class.any_instance.expects(:permit_transaction)
-        stub_request(:post, deposit_wallet.uri).with(body: eth_sendTransaction_request).to_return(body: eth_sendTransaction_response)
->>>>>>> Plugable NXT/WCG coins
       end
 
       it do
@@ -226,12 +216,7 @@ describe WalletService::Geth do
       subject { Peatio::WalletService[hot_wallet].build_withdrawal!(withdraw)}
 
       before do
-<<<<<<< HEAD
         stub_request(:post, 'http://127.0.0.1:8545/').with(body: personal_sendTransaction_request).to_return(body: personal_sendTransaction_response)
-=======
-        Peatio::WalletClient[hot_wallet].class.any_instance.expects(:permit_transaction)
-        stub_request(:post, 'http://127.0.0.1:8545/').with(body: eth_sendTransaction_request).to_return(body: eth_sendTransaction_response)
->>>>>>> Plugable NXT/WCG coins
       end
 
       it 'sends withdrawal' do
@@ -304,12 +289,7 @@ describe WalletService::Geth do
       subject { Peatio::WalletService[hot_wallet].build_withdrawal!(withdraw)}
 
       before do
-<<<<<<< HEAD
         stub_request(:post, 'http://127.0.0.1:8545/').with(body: personal_sendTransaction_request).to_return(body: personal_sendTransaction_response)
-=======
-        Peatio::WalletClient[hot_wallet].class.any_instance.expects(:permit_transaction)
-        stub_request(:post, 'http://127.0.0.1:8545/').with(body: eth_sendTransaction_request).to_return(body: eth_sendTransaction_response)
->>>>>>> Plugable NXT/WCG coins
       end
 
       it 'sends withdrawal and returns txid' do
@@ -392,12 +372,7 @@ describe WalletService::Geth do
     subject { Peatio::WalletService[deposit_wallet].deposit_collection_fees(deposit) }
 
     before do
-<<<<<<< HEAD
       stub_request(:post, deposit_wallet.uri).with(body: personal_sendTransaction_request).to_return(body: personal_sendTransaction_response)
-=======
-      Peatio::WalletClient[deposit_wallet].class.any_instance.expects(:permit_transaction)
-      stub_request(:post, deposit_wallet.uri).with(body: eth_sendTransaction_request).to_return(body: eth_sendTransaction_response)
->>>>>>> Plugable NXT/WCG coins
     end
 
     it do

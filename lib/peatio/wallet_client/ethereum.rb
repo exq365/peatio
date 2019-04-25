@@ -65,8 +65,6 @@ module WalletClient
       end
     end
 
-<<<<<<< HEAD:lib/peatio/wallet_client/ethereum.rb
-=======
     def permit_transaction(issuer, recipient)
       json_rpc(:personal_unlockAccount, [normalize_address(issuer.fetch(:address)), issuer.fetch(:secret), 5]).tap do |response|
         unless response['result']
@@ -76,7 +74,6 @@ module WalletClient
       end
     end
 
->>>>>>> Plugable NXT/WCG coins:lib/wallet_client/geth.rb
     def inspect_address!(address)
       { address:  normalize_address(address),
         is_valid: valid_address?(normalize_address(address)) }

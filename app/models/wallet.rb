@@ -11,11 +11,7 @@ class Wallet < ApplicationRecord
   ENUMERIZED_KINDS = { deposit: 100, fee: 200, hot: 310, warm: 320, cold: 330 }.freeze
   enumerize :kind, in: ENUMERIZED_KINDS, scope: true
 
-<<<<<<< HEAD
-  GATEWAYS = %w[bitcoind bitcoincashd litecoind parity geth dashd rippled bitgo].freeze
-=======
-  GATEWAYS = %w[bitcoind bitcoincashd litecoind geth dashd rippled bitgo nxt wcg].freeze
->>>>>>> Plugable NXT/WCG coins
+  GATEWAYS = %w[bitcoind bitcoincashd litecoind parity geth dashd rippled bitgo nxt wcg].freeze
   SETTING_ATTRIBUTES = %i[ uri
                            secret
                            bitgo_test_net

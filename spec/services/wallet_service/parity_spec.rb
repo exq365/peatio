@@ -15,7 +15,7 @@ describe WalletService::Parity do
   let(:eth_options) { { gas_limit: 21_000, gas_price: 1_000_000_000 } }
 
   describe '#create_address' do
-    subject { WalletService[deposit_wallet].create_address }
+    subject { Peatio::WalletService[deposit_wallet].create_address }
 
     let :personal_newAccount_request do
       { jsonrpc: '2.0',
@@ -92,7 +92,7 @@ describe WalletService::Parity do
             result:  txid }.to_json
         end
 
-        subject { WalletService[deposit_wallet].collect_deposit!(deposit) }
+        subject { Peatio::WalletService[deposit_wallet].collect_deposit!(deposit) }
 
         before do
           stub_request(:post, hot_wallet.uri).with(body: eth_getBalance_request).to_return(body: eth_getBalance_response)
@@ -165,7 +165,7 @@ describe WalletService::Parity do
           result:  txid }.to_json
       end
 
-      subject { WalletService[deposit_wallet].collect_deposit!(deposit) }
+      subject { Peatio::WalletService[deposit_wallet].collect_deposit!(deposit) }
 
       before do
         stub_request(:post, hot_wallet.uri).with(body: eth_call_request).to_return(body: eth_call_response)
@@ -211,7 +211,7 @@ describe WalletService::Parity do
         }.to_json
       end
 
-      subject { WalletService[hot_wallet].build_withdrawal!(withdraw)}
+      subject { Peatio::WalletService[hot_wallet].build_withdrawal!(withdraw)}
 
       before do
         stub_request(:post, 'http://127.0.0.1:8545/').with(body: personal_sendTransaction_request).to_return(body: personal_sendTransaction_response)
@@ -249,7 +249,7 @@ describe WalletService::Parity do
         }.to_json
       end
 
-      subject { WalletService[hot_wallet].build_withdrawal!(withdraw)}
+      subject { Peatio::WalletService[hot_wallet].build_withdrawal!(withdraw)}
 
       before do
         stub_request(:post, 'http://127.0.0.1:8545/').with(body: personal_sendTransaction_request).to_return(body: personal_sendTransaction_response)
@@ -296,7 +296,7 @@ describe WalletService::Parity do
       }.to_json
     end
 
-    subject { WalletService[deposit_wallet].deposit_collection_fees(deposit) }
+    subject { Peatio::WalletService[deposit_wallet].deposit_collection_fees(deposit) }
 
     before do
       stub_request(:post, deposit_wallet.uri).with(body: personal_sendTransaction_request).to_return(body: personal_sendTransaction_response)

@@ -9,11 +9,7 @@ describe BlockchainService::Geth do
     WebMock.allow_net_connect!
   end
 
-<<<<<<< HEAD:spec/services/blockchain_service/geth_spec.rb
-  describe 'Client::Geth' do
-=======
   describe 'BlockchainClient::Ethereum' do
->>>>>>> Plugable NXT/WCG coins:spec/services/blockchain_service/ethereum_spec.rb
     let(:block_data) do
       Rails.root.join('spec', 'resources', 'ethereum-data', 'rinkeby', block_file_name)
         .yield_self { |file_path| File.open(file_path) }

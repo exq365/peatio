@@ -30,7 +30,9 @@ describe BlockchainService::Parity do
         .tap { |b| b.update(height: start_block) }
     end
 
-    let(:client) { BlockchainClient[blockchain.key] }
+    let(:client) do
+      Peatio::BlockchainClient[blockchain.key] 
+    end
 
     def request_receipt_body(txid)
       { jsonrpc: '2.0',
@@ -87,7 +89,7 @@ describe BlockchainService::Parity do
         end
 
         # Process blockchain data.
-        BlockchainService[blockchain.key].process_blockchain(force: true)
+        Peatio::BlockchainService[blockchain.key].process_blockchain(force: true)
       end
 
       subject { Deposits::Coin.where(currency: currency) }
@@ -109,7 +111,7 @@ describe BlockchainService::Parity do
 
         it 'doesn\'t change deposit' do
           expect(blockchain.height).to eq start_block
-          expect{ BlockchainService[blockchain.key].process_blockchain(force: true)}.not_to change{subject}
+          expect{ Peatio::BlockchainService[blockchain.key].process_blockchain(force: true)}.not_to change{subject}
         end
       end
     end
@@ -163,7 +165,7 @@ describe BlockchainService::Parity do
               .with(body: request_receipt_body(rcpt['result']['transactionHash']))
               .to_return(body: rcpt.to_json)
         end
-        BlockchainService[blockchain.key].process_blockchain(force: true)
+        Peatio::BlockchainService[blockchain.key].process_blockchain(force: true)
       end
 
       subject { Deposits::Coin.where(currency: currency) }
@@ -185,7 +187,7 @@ describe BlockchainService::Parity do
 
         it 'doesn\'t change deposit' do
           expect(blockchain.height).to eq start_block
-          expect{ BlockchainService[blockchain.key].process_blockchain(force: true)}.not_to change{subject}
+          expect{ Peatio::BlockchainService[blockchain.key].process_blockchain(force: true)}.not_to change{subject}
         end
       end
     end
@@ -235,7 +237,7 @@ describe BlockchainService::Parity do
               .with(body: request_receipt_body(rcpt['result']['transactionHash']))
               .to_return(body: rcpt.to_json)
         end
-        BlockchainService[blockchain.key].process_blockchain(force: true)
+        Peatio::BlockchainService[blockchain.key].process_blockchain(force: true)
       end
 
       subject { Deposits::Coin.where(currency: currency) }
@@ -303,7 +305,7 @@ describe BlockchainService::Parity do
               .with(body: request_receipt_body(rcpt['result']['transactionHash']))
               .to_return(body: rcpt.to_json)
         end
-        BlockchainService[blockchain.key].process_blockchain(force: true)
+        Peatio::BlockchainService[blockchain.key].process_blockchain(force: true)
       end
 
       subject { Withdraws::Coin.where(currency: currency) }
@@ -391,7 +393,7 @@ describe BlockchainService::Parity do
               .with(body: request_receipt_body(rcpt['result']['transactionHash']))
               .to_return(body: rcpt.to_json)
         end
-        BlockchainService[blockchain.key].process_blockchain(force: true)
+        Peatio::BlockchainService[blockchain.key].process_blockchain(force: true)
       end
 
       subject { Withdraws::Coin.where(currency: currency) }

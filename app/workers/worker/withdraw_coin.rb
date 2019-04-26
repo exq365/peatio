@@ -36,17 +36,17 @@ module Worker
           return
         end
 
-        currency = withdraw.currency
+        # currency = withdraw.currency
 
         wallet_service = Peatio::WalletService[wallet]
 
-        balance = wallet_service.load_balance(wallet.address, currency)
+        # balance = wallet_service.load_balance(wallet.address, currency)
 
-        if balance < withdraw.sum
-          Rails.logger.warn { "The withdraw skipped because wallet balance is not sufficient (wallet balance is #{balance.to_s("F")})." }
-          withdraw.skip!
-          return
-        end
+        # if balance < withdraw.sum
+        #   Rails.logger.warn { "The withdraw skipped because wallet balance is not sufficient (wallet balance is #{balance.to_s("F")})." }
+        #   withdraw.skip!
+        #   return
+        # end
 
         Rails.logger.warn { "Sending request to Wallet Service." }
 

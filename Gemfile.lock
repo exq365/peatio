@@ -1,9 +1,9 @@
 GIT
   remote: https://github.com/skyach/peatio-core
-  revision: d6190737bf9635704c3f1a4eef5514bb0daa0799
+  revision: 9513c65969cb42842e872b3ca9c9acf30bef1a57
   branch: blockchain-wallet-service
   specs:
-    peatio (0.4.3)
+    peatio (0.4.5)
       amqp
       bunny
       clamp

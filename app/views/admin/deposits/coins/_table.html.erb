@@ -35,7 +35,7 @@
                     method:  'PATCH',
                     confirm: 'dispatch deposit?' %>
       <% end %>
-      <% if x.may_dispatch? && x.currency.is_erc20? %>
+      <% if x.may_dispatch? && (x.currency.is_erc20? || x.currency.is_token_currency? || x.currency.is_token_asset?) %>
         <span> / </span>
         <%= link_to 'Collect with Fees',
                     admin_deposit_path(x.currency.code, x, event: 'collect_fee'),
